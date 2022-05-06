@@ -4,20 +4,21 @@ A collection of NFT Aliens
 
 This subgraph provide an standard erc-721 implementation deployed into Polygon.
 
-**Link to the hosted service subgraph**
+**Link to the hosted service subgraph :**
 https://thegraph.com/hosted-service/subgraph/rtomas/the-visitors
 
---
-**Contract from the collection**
+---
+
+**Contract from the collection :**
 https://polygonscan.com/address/0x0a0bf65248805efa926c39bf51b6dd94e3d1a7af#code
 
-**Official Website**
+**Official Website :**
 https://thevisitorsnft.com/
 
-**Link to opensea colection**
+**Link to opensea colection :**
 https://opensea.io/collection/thevisitors
 
---
+---
 
 ## List of some subgraphs querys
 
