@@ -17,6 +17,8 @@ export namespace transfer {
 
     let account = accounts.getOrCreateAccount(to)
 
+    let numTokenBefore = account.numTokens
+
     account.numTokens = account.numTokens.plus(integer.ONE)
     account.save()
 
@@ -56,6 +58,7 @@ export namespace transfer {
     let tokenIdStr = tokenId.toString()
 
     let account = accounts.getOrCreateAccount(from)
+    let numTokenBefore = account.numTokens
     account.numTokens = account.numTokens.minus(integer.ONE)
     account.save()
 
