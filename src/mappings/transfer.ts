@@ -27,12 +27,14 @@ export namespace transfer {
     token.tokenID = tokenId
     token.save()
 
-    let buyer = accounts.getOrCreateAccount(to)
-
     let visitor = visitors.getOrCreateVisitorsInfo(visitorInfoId)
+
+    // add general info
     visitor.numTokens = visitor.numTokens.plus(integer.ONE)
     visitor.lastMintDate = timestamp
-    if (buyer.numTokens.equals(integer.ZERO)) {
+
+    // if numtokens is 1, then it is a new owner
+    if (account.numTokens.equals(integer.ONE)) {
       visitor.numOwners = visitor.numOwners.plus(integer.ONE)
     }
     if (isNewAccount) {
@@ -61,14 +63,12 @@ export namespace transfer {
     token.burned = true
     token.save()
 
-    let burnAccount = accounts.getOrCreateAccount(from)
-    burnAccount.numTokens = burnAccount.numTokens.minus(integer.ONE)
-    burnAccount.save()
-
     let visitor = visitors.getOrCreateVisitorsInfo(visitorInfoId)
     visitor.numTokens = visitor.numTokens.minus(integer.ONE)
     visitor.lastBurned = timestamp
-    if (burnAccount.numTokens.equals(integer.ZERO)) {
+
+    // if token is 0, one less owner
+    if (account.numTokens.equals(integer.ZERO)) {
       visitor.numOwners = visitor.numOwners.minus(integer.ONE)
     }
     visitor.save()
@@ -88,21 +88,21 @@ export namespace transfer {
     let tokenIdStr = tokenId.toString()
 
     let seller = accounts.getOrCreateAccount(from)
+
     seller.numTokens = seller.numTokens.minus(integer.ONE)
     seller.save()
 
     let buyer = accounts.getOrCreateAccount(to)
+
     buyer.numTokens = buyer.numTokens.plus(integer.ONE)
     buyer.save()
 
     let token = tokens.changeOwner(tokenIdStr, buyer.id)
     token.save()
 
-    let transaction = transactions.getNewTransfer(seller.id, buyer.id, tokenIdStr, timestamp, blockId)
-    transaction.save()
-
     let visitor = visitors.getOrCreateVisitorsInfo(visitorInfoId)
     visitor.lastTransferDate = timestamp
+
     if (seller.numTokens.equals(integer.ZERO)) {
       visitor.numOwners = visitor.numOwners.minus(integer.ONE)
     }
@@ -110,5 +110,8 @@ export namespace transfer {
       visitor.numOwners = visitor.numOwners.plus(integer.ONE)
     }
     visitor.save()
+
+    let transaction = transactions.getNewTransfer(seller.id, buyer.id, tokenIdStr, timestamp, blockId)
+    transaction.save()
   }
 }

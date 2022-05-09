@@ -22,6 +22,7 @@ export namespace transactions {
     transaction.token = token
     transaction.block = blockId
     transaction.type = constants.TRANSACTION_MINT
+
     return transaction as Mint
   }
 
@@ -32,6 +33,7 @@ export namespace transactions {
     transaction.token = token
     transaction.block = blockId
     transaction.type = constants.TRANSACTION_BURN
+
     return transaction as Burn
   }
 
@@ -48,6 +50,7 @@ export namespace transactions {
     transaction.token = token
     transaction.block = blockId
     transaction.type = constants.TRANSACTION_TRANSFER
+
     return transaction as Transfer
   }
 }
