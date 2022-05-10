@@ -19,8 +19,6 @@ export function handleTransfer(event: Transfer): void {
   let blockId = blockNumber.toString()
   let timestamp = event.block.timestamp
 
-  visitors.getOrCreateVisitorsInfo(VISITOR_ID)
-
   let block = blocks.getOrCreateBlock(blockId, timestamp, blockNumber)
   block.save()
 
